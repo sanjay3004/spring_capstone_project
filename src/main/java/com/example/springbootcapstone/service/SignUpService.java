@@ -49,4 +49,5 @@ public class SignUpService {
         userRepository.save(currUser);
         return true;
     }
+
 }

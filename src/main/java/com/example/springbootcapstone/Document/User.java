@@ -54,6 +54,8 @@ public class User implements UserDetails {
 
     List<GrantedAuthority> authorities;
 
+    boolean passwordChangeable=false;
+
 
     public User(String userName, String password, String firstName, String lastName, String role,String DOB, String gender) {
         this.userName = userName;
@@ -107,7 +109,7 @@ public class User implements UserDetails {
         return enabled;
     }
 
-    public void setPassword(String password) {
+    public void setPassword( String password) {
         this.password = password;
     }
 
@@ -159,5 +161,11 @@ public class User implements UserDetails {
         this.gender = gender;
     }
 
+    public boolean isPasswordChangeable() {
+        return passwordChangeable;
+    }
 
+    public void setPasswordChangeable(boolean passwordChangeable) {
+        this.passwordChangeable = passwordChangeable;
+    }
 }

@@ -12,9 +12,6 @@ public class HelloController {
         return "hello_world";
     }
 
-    @RequestMapping("welcome")
-    public String welcome() {
-        return "hiiiii";
-    }
+
 
 }

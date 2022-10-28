@@ -24,4 +24,16 @@ public class MailSendingService {
 
         javaMailSender.send(mailMessage);
     }
+
+    @Async
+    public void forgotMailSender(String email,String token){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(email);
+        mailMessage.setSubject("Complete Registration!");
+        mailMessage.setFrom("sanjaysankar002@gmail.com");
+        mailMessage.setText("To change your password, please click here : "
+                +"http://localhost:8080/changePassword?token="+token);
+
+        javaMailSender.send(mailMessage);
+    }
 }
