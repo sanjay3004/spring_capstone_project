@@ -1,14 +1,11 @@
 package com.example.springbootcapstone.service;
-
-import com.example.springbootcapstone.Document.Enums.ForgotToken;
-import com.example.springbootcapstone.Document.Token;
+import com.example.springbootcapstone.Document.ForgotToken;
 import com.example.springbootcapstone.Document.User;
 import com.example.springbootcapstone.repository.ForgotPasswordRepository;
 import com.example.springbootcapstone.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class ForgotPasswordService {

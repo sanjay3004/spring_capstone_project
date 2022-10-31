@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/forgot")
 public class ForgotPasswordController {
 
     @Autowired
@@ -23,7 +24,7 @@ public class ForgotPasswordController {
     @Autowired
     ForgotPasswordService forgotPasswordService;
 
-    @PostMapping("/forgot")
+    @PostMapping("/reset")
     @ResponseBody
     public String forgotPass(@RequestBody String username)  {
         String generatedToken=forgotPasswordService.generateToken(username);

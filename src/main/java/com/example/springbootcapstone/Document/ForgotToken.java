@@ -1,4 +1,4 @@
-package com.example.springbootcapstone.Document.Enums;
+package com.example.springbootcapstone.Document;
 
 import com.example.springbootcapstone.Document.User;
 import org.springframework.data.annotation.Id;
