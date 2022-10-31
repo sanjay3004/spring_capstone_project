@@ -41,8 +41,6 @@ public class ForgotPasswordService {
 
     public boolean isFound(String userName){
         User user=userRepository.findByUserName(userName);
-
-        System.out.println(user.getFirstName());
         if(user!=null){
             return true;
         }

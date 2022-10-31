@@ -5,6 +5,7 @@ import com.example.springbootcapstone.Document.User;
 import com.example.springbootcapstone.Document.passwordDto;
 import com.example.springbootcapstone.service.ForgotPasswordService;
 import com.example.springbootcapstone.service.MailSendingService;
+import com.example.springbootcapstone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.stereotype.Controller;
@@ -24,19 +25,25 @@ public class ForgotPasswordController {
     @Autowired
     ForgotPasswordService forgotPasswordService;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("/reset")
     @ResponseBody
     public String forgotPass(@RequestBody String username)  {
-        String generatedToken=forgotPasswordService.generateToken(username);
-        mailSendingService.forgotMailSender(username,generatedToken);
-        return "mail sent";
+        if(forgotPasswordService.isFound(username)){
+            String generatedToken = forgotPasswordService.generateToken(username);
+            mailSendingService.forgotMailSender(username, generatedToken);
+            return "mail sent";
+        }
+        return "user not found!";
     }
 
     @RequestMapping("/changePassword")
     @ResponseBody
     public String changePassword(@RequestParam("token") String generatedToken){
         if(forgotPasswordService.allow(generatedToken)){
-            return "you can change now";
+            return "you can change now  \n http://localhost:8080/change";
         }
 
        return "the link is broken";

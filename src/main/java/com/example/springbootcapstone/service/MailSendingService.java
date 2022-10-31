@@ -32,7 +32,7 @@ public class MailSendingService {
         mailMessage.setSubject("Complete Registration!");
         mailMessage.setFrom("sanjaysankar002@gmail.com");
         mailMessage.setText("To change your password, please click here : "
-                +"http://localhost:8080/changePassword?token="+token);
+                +"http://localhost:8080/forgot/changePassword?token="+token);
 
         javaMailSender.send(mailMessage);
     }

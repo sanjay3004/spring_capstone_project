@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController()
 @RequestMapping("/register")
@@ -37,7 +39,8 @@ public class SignUpController {
         if(!isFound){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found!");
         }
-        return ResponseEntity.status(HttpStatus.OK).body("success");
+        URI uri=URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/register/confirm").toUriString());
+        return ResponseEntity.created(uri).body("success");
     }
 
 }
