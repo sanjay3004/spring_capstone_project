@@ -2,6 +2,7 @@ package com.example.springbootcapstone.securityConfig;
 
 import com.example.springbootcapstone.Document.User;
 import com.example.springbootcapstone.filter.AuthenticationFilter;
+import com.example.springbootcapstone.filter.AuthorizationFilter;
 import com.example.springbootcapstone.repository.UserRepository;
 import com.example.springbootcapstone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.PostConstruct;
 
@@ -32,11 +34,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        AuthenticationFilter authenticationFilter=new AuthenticationFilter(authenticationManagerBean());
         http.csrf().disable().authorizeRequests().antMatchers("/register/**","/forgot/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();
-    //    http.addFilter(new AuthenticationFilter(authenticationManagerBean()));
+        http.addFilter(authenticationFilter);
+        http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
     }
 
 
@@ -49,7 +54,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
     }

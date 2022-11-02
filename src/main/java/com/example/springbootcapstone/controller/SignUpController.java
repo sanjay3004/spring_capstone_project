@@ -50,7 +50,7 @@ public class SignUpController {
         return ResponseEntity.created(uri).body("success");
     }
 
-    @RequestMapping(value = "/loginapi",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody PasswordDto passwordDto){
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=new UsernamePasswordAuthenticationToken(passwordDto.getUsername(),passwordDto.getPassword());
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);

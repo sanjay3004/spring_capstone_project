@@ -7,7 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloController {
 
-    @GetMapping("/get")
+    @GetMapping("/hello")
+    @ResponseBody
     public String hello() {
         return "hello_world";
     }
