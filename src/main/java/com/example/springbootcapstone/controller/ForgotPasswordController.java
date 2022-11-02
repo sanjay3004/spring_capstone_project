@@ -1,17 +1,12 @@
 package com.example.springbootcapstone.controller;
 
-import com.example.springbootcapstone.Document.Token;
-import com.example.springbootcapstone.Document.User;
-import com.example.springbootcapstone.Document.passwordDto;
+import com.example.springbootcapstone.Document.PasswordDto;
 import com.example.springbootcapstone.service.ForgotPasswordService;
 import com.example.springbootcapstone.service.MailSendingService;
 import com.example.springbootcapstone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -51,7 +46,7 @@ public class ForgotPasswordController {
 
     @RequestMapping("/change")
     @ResponseBody
-    public String change(@Valid @RequestBody passwordDto pass){
+    public String change(@Valid @RequestBody PasswordDto pass){
         if(forgotPasswordService.isFound(pass.getUsername())){
             if(forgotPasswordService.change(pass.getUsername(),pass.getPassword())){
                     return "changed successfully";

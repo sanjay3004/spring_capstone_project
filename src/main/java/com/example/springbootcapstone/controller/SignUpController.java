@@ -1,11 +1,15 @@
 package com.example.springbootcapstone.controller;
 
 import com.example.springbootcapstone.Document.User;
+import com.example.springbootcapstone.Document.PasswordDto;
 import com.example.springbootcapstone.service.MailSendingService;
 import com.example.springbootcapstone.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,6 +25,9 @@ public class SignUpController {
 
     @Autowired
     MailSendingService mailSendingService;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @PostMapping("/newUser")
     public ResponseEntity<?> signUp( @Valid @RequestBody User user){
@@ -41,6 +48,13 @@ public class SignUpController {
         }
         URI uri=URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/register/confirm").toUriString());
         return ResponseEntity.created(uri).body("success");
+    }
+
+    @RequestMapping(value = "/loginapi",method = RequestMethod.POST)
+    public ResponseEntity<?> login(@RequestBody PasswordDto passwordDto){
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=new UsernamePasswordAuthenticationToken(passwordDto.getUsername(),passwordDto.getPassword());
+        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        return ResponseEntity.ok("success");
     }
 
 }
